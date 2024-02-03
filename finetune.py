@@ -27,9 +27,9 @@ from utils.prompter import Prompter
 
 def train(
     # model/data params
-    base_model: str = "",  # the only required argument
-    data_path: str = "yahma/alpaca-cleaned",
-    output_dir: str = "./lora-alpaca",
+    base_model: str = "/home/niwang/models/llama-7b-hf",  # the only required argument
+    data_path: str = "/home/niwang/data/alpaca-cleaned",
+    output_dir: str = "/home/niwang/data/llama-7b-hf-trained",
     # training hyperparams
     batch_size: int = 128,
     micro_batch_size: int = 4, # 单张卡上的batch_size，一次梯度的batch_size
@@ -280,4 +280,4 @@ def train(
 
 
 if __name__ == "__main__":
-    fire.Fire(train)
+    train()
