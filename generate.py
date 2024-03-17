@@ -1,4 +1,6 @@
 import os
+os.environ["CUDA_VISIBLE_DEVICES"] = "1"
+
 import sys
 
 import fire
@@ -26,12 +28,12 @@ except:  # noqa: E722
 def main(
     load_8bit: bool = False,
     base_model: str = "",
-    lora_weights: str = "tloen/alpaca-lora-7b",
+    lora_weights: str = "/home/niwang/data/llama-7b-hf-trained",
     prompt_template: str = "",  # The prompt template to use, will default to alpaca.
     server_name: str = "0.0.0.0",  # Allows to listen on all interfaces by providing '0.
     share_gradio: bool = False,
 ):
-    base_model = base_model or os.environ.get("BASE_MODEL", "")
+    base_model = "/home/niwang/models/llama-7b-hf"
     assert (
         base_model
     ), "Please specify a --base_model, e.g. --base_model='huggyllama/llama-7b'"
@@ -185,7 +187,7 @@ def main(
             gr.components.Checkbox(label="Stream output"),
         ],
         outputs=[
-            gr.inputs.Textbox(
+            gr.Textbox(
                 lines=5,
                 label="Output",
             )
@@ -215,4 +217,4 @@ def main(
 
 
 if __name__ == "__main__":
-    fire.Fire(main)
+    main()
