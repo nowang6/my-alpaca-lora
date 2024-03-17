@@ -44,11 +44,12 @@ def train(
     lora_dropout: float = 0.05,
     lora_target_modules: List[str] = [
         "q_proj",
+        "k_proj",
         "v_proj",
     ], # 对哪些层添加lora, 还有k, o
     # llm hyperparams
-    train_on_inputs: bool = True,  # if False, masks out inputs in loss 在input上也要做训练
-    add_eos_token: bool = False,
+    train_on_inputs: bool = False,  # if False, masks out inputs in loss 在input上也要做训练
+    add_eos_token: bool = True,
     group_by_length: bool = False,  # faster, but produces an odd training loss curve
     # wandb params
     wandb_project: str = "",
@@ -112,7 +113,7 @@ def train(
 
     model = LlamaForCausalLM.from_pretrained(
         base_model,
-        load_in_8bit=True,
+        load_in_8bit=False,
         torch_dtype=torch.float16,
         device_map=device_map,
     ) #加载模型
